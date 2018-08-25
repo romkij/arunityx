@@ -15,6 +15,7 @@ UNITY_VERSION=$1
 
 # Get our location.
 OURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo $OURDIR
 ARUNITYX_HOME=$OURDIR/../.. 
 
 #Check if we are using the submodule to build
@@ -50,9 +51,10 @@ fi
 
 
 # Rename version, where appropriate.
-sed -Ei "" "s/artoolkitX for Unity Version (([0-9]+\.[0-9]+)(\.[0-9]+)?(r[0-9]+)?)/artoolkitX for Unity Version $VERSION/" $ARUNITYX_HOME/Source/Package/Assets/ARToolKitX-Unity/Scripts/Editor/ARToolKitMenuEditor.cs
+sed -Ei "s/artoolkitX for Unity Version (([0-9]+\.[0-9]+)(\.[0-9]+)?(r[0-9]+)?)/artoolkitX for Unity Version $VERSION/" $ARUNITYX_HOME/Source/Package/Assets/ARToolKitX-Unity/Scripts/Editor/ARToolKitMenuEditor.cs
 
 # Build the unitypackage.
-/Applications/Unity$UNITY_VERSION/Unity.app/Contents/MacOS/Unity -quit -batchmode -nographics -stackTraceLogType Full -executeMethod ARToolKitPackager.CreatePackage -projectPath $ARUNITYX_HOME/Source/Package ARUnityX-${VERSION}.unitypackage
+#/Applications/Unity$UNITY_VERSION/Unity.app/Contents/MacOS/Unity -quit -batchmode -nographics -stackTraceLogType Full -executeMethod ARToolKitPackager.CreatePackage -projectPath $ARUNITYX_HOME/Source/Package ARUnityX-${VERSION}.unitypackage
+/c/Program\ Files/Unity/Hub/Editor/2018.2.5f1/Editor/Unity.exe  -quit -batchmode -nographics -stackTraceLogType Full -executeMethod ARToolKitPackager.CreatePackage -projectPath $ARUNITYX_HOME/Source/Package ARUnityX-${VERSION}.unitypackage
 
 mv $ARUNITYX_HOME/Source/Package/arunityX-${VERSION}.unitypackage $ARUNITYX_HOME
